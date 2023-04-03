@@ -5,13 +5,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void a(const char* path) {
+void a(const char *path) {
     if ((mkdir(path, 0777)) == -1) {
         perror("Error in a)");
         exit(-1);
     }
 }
-void b(const char* path) {
+
+void b(const char *path) {
     DIR *dir = opendir(path);
     if (!dir) {
         perror("Error ib b)");
@@ -22,14 +23,16 @@ void b(const char* path) {
         printf("%s\n", entry->d_name);
     }
 }
-void c(const char* path) {
+
+void c(const char *path) {
     if (remove(path) == -1) {
         perror("Error in c");
         exit(-1);
     }
 }
-void d(const char* path) {
-    FILE* file;
+
+void d(const char *path) {
+    FILE *file;
     if ((file = fopen(path, "w")) == NULL) {
         fclose(file);
         perror("Error in d)");
@@ -37,33 +40,37 @@ void d(const char* path) {
     }
     fclose(file);
 }
-void e(const char* path) {
-    FILE* file;
+
+void e(const char *path) {
+    FILE *file;
     if ((file = fopen(path, "r")) == NULL) {
         fclose(file);
         perror("Error in e)");
         exit(-1);
     }
     char symbol;
-    while ((symbol = (char)fgetc(file)) != EOF) {
+    while ((symbol = (char) fgetc(file)) != EOF) {
         printf("%c", symbol);
     }
     fclose(file);
 }
-void f(const char* path) {
+
+void f(const char *path) {
     if (remove(path) == -1) {
         perror("Error in f)");
         exit(-1);
     }
 }
-void g(const char* path) {
+
+void g(const char *path) {
     if ((symlink(path, "symlink")) == -1) {
         perror("Error in g)");
         exit(-1);
     }
 }
-void h(const char* path) {
-    char* buffer = (char*) calloc(4096, sizeof(char));
+
+void h(const char *path) {
+    char *buffer = (char *) calloc(4096, sizeof(char));
     if ((readlink(path, buffer, 4096)) == -1) {
         free(buffer);
         perror("Error in h)");
@@ -72,14 +79,15 @@ void h(const char* path) {
     puts(buffer);
     free(buffer);
 }
-void i(const char* path) {
-    char* buffer = (char*) calloc(4096, sizeof(char));
+
+void i(const char *path) {
+    char *buffer = (char *) calloc(4096, sizeof(char));
     if ((readlink(path, buffer, 4096)) == -1) {
         free(buffer);
         perror("Error in i) (readlink)");
         exit(-1);
     }
-    FILE* file;
+    FILE *file;
     if ((file = fopen(buffer, "r")) == NULL) {
         free(buffer);
         fclose(file);
@@ -87,31 +95,35 @@ void i(const char* path) {
         exit(-1);
     }
     char symbol;
-    while ((symbol = (char)fgetc(file)) != EOF) {
+    while ((symbol = (char) fgetc(file)) != EOF) {
         printf("%c", symbol);
     }
     fclose(file);
     free(buffer);
 }
-void j(const char* path) {
+
+void j(const char *path) {
     if ((remove(path)) == -1) {
         perror("Error in j)");
         exit(-1);
     }
 }
-void k(const char* path) {
+
+void k(const char *path) {
     if ((link(path, "hard")) == -1) {
         perror("Error in k)");
         exit(-1);
     }
 }
-void l(const char* path) {
-    if ((remove(path)) == -1) {
+
+void l(const char *path) {
+    if ((unlink(path)) == -1) {
         perror("Error in l)");
         exit(-1);
     }
 }
-void m(const char* path) {
+
+void m(const char *path) {
     struct stat file_stat_struct;
     if ((stat(path, &file_stat_struct) == -1)) {
         perror("Error in m)");
@@ -130,7 +142,8 @@ void m(const char* path) {
     printf("%d", file_stat_struct.st_nlink);
 
 }
-void n(const char* path) {
+
+void n(const char *path) {
     if ((chmod(path, 0777) == -1)) {
         perror("Error in n)");
         exit(-1);
@@ -138,7 +151,7 @@ void n(const char* path) {
 }
 
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     if (argc < 2) {
         return -1;
     }
