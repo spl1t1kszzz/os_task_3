@@ -103,7 +103,7 @@ void i(const char *path) {
 }
 
 void j(const char *path) {
-    if ((remove(path)) == -1) {
+    if ((unlink(path)) == -1) {
         perror("Error in j)");
         exit(-1);
     }
